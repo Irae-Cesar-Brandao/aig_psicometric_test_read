@@ -5,7 +5,16 @@ Uso de linguagens:  HMTL, CSS E JAVASCRIPT
 Finalidade: Pesquisa acadêmica e educacional sem fins lucrativos.
 Link de acesso:  https://irae-cesar-brandao.github.io/aig_psicometric_test_read/  
 
-Resumo — como o controle de dificuldade em AIG afeta os resultados dos testes?
+
+<b>Relações entre geração automática de itens (AIG) com controle de dificuldade e os resultados dos testes de compreensão leitora; depois listo publicações-chave com uma breve explicação entre parênteses para cada referência.</b>
+
+A geração automática de testes de compreensão leitora com controle de dificuldade tem sido apontada como uma estratégia capaz de melhorar a precisão e a validade das avaliações educacionais. Quando se utiliza modelos psicométricos ou abordagens baseadas em IA para ajustar o nível de desafio dos itens, os testes passam a oferecer medidas mais exatas da habilidade do leitor, reduzindo erros de avaliação e evitando problemas como itens muito fáceis ou impossíveis de serem resolvidos (Circi, 2023). Esse controle permite selecionar ou gerar automaticamente questões coerentes com o nível de proficiência dos estudantes, resultando em testes mais equilibrados, com maior poder discriminativo e aplicáveis tanto em avaliações em larga escala quanto em sistemas adaptativos (Uto, 2023). Além disso, autores destacam que a calibração da dificuldade também potencializa o uso de avaliações computadorizadas adaptativas, pois permite ajustar dinamicamente os itens ao desempenho do aluno (Attali & Burstein, 2022).
+
+Em contraste, quando os itens são gerados sem considerar a dificuldade, os resultados dos testes podem ser distorcidos, com baixa precisão na estimativa de habilidade e menor validade pedagógica e psicométrica (Susanti et al.,2017). Estudos comparativos mostram que a simples adoção de técnicas de geração automática não garante qualidade, sendo o controle de parâmetros como dificuldade lexical, complexidade textual e estrutura lógica essencial para gerar questões que realmente avaliem compreensão leitora em diferentes níveis (Tomikawa, 2024). Assim, o avanço das técnicas de geração automática de itens — especialmente as baseadas em modelos de linguagem e teoria de resposta ao item — indica que a personalização e o controle da dificuldade não apenas alteram, mas elevam significativamente a qualidade dos resultados obtidos em testes de leitura.
+
+
+
+<b>Resumo — como o controle de dificuldade em AIG afeta os resultados dos testes?</b>
 
 - Melhora a precisão da medição: quando itens (passagens + questões) são gerados com dificuldade estimada e controlada segundo modelos psicométricos (p.ex. IRT), é possível selecionar ou montar testes que correspondam melhor às habilidades dos alunos, reduzindo efeitos de teto/chão e o erro padrão de medida nas pontuações (Uto, Tomikawa & Suzuki, 2023).
 
@@ -15,13 +24,6 @@ Resumo — como o controle de dificuldade em AIG afeta os resultados dos testes?
 
 - Efeito sobre resultados em comparação com geração sem controle: testes gerados sem considerar dificuldade tendem a produzir medidas menos precisas — mais viés para alunos muito fracos ou muito fortes, menor informação test-retest e possíveis problemas de validade (itens muito fáceis/ difíceis ou distractores mal calibrados). Estudos experimentais mostram que controlar a dificuldade (via IRT, heurísticas linguísticas ou LLMs com rótulos de dificuldade) altera as taxas de acerto, índices de discriminação e a estimativa de habilidade média da amostra(Susanti et al., 2017).
  
-
-Relações entre geração automática de itens (AIG) com controle de dificuldade e os resultados dos testes de compreensão leitora; depois listo publicações-chave com uma breve explicação entre parênteses para cada referência.
-
-A geração automática de testes de compreensão leitora com controle de dificuldade tem sido apontada como uma estratégia capaz de melhorar a precisão e a validade das avaliações educacionais. Quando se utiliza modelos psicométricos ou abordagens baseadas em IA para ajustar o nível de desafio dos itens, os testes passam a oferecer medidas mais exatas da habilidade do leitor, reduzindo erros de avaliação e evitando problemas como itens muito fáceis ou impossíveis de serem resolvidos (Circi, 2023). Esse controle permite selecionar ou gerar automaticamente questões coerentes com o nível de proficiência dos estudantes, resultando em testes mais equilibrados, com maior poder discriminativo e aplicáveis tanto em avaliações em larga escala quanto em sistemas adaptativos (Uto, 2023). Além disso, autores destacam que a calibração da dificuldade também potencializa o uso de avaliações computadorizadas adaptativas, pois permite ajustar dinamicamente os itens ao desempenho do aluno (Attali & Burstein, 2022).
-
-Em contraste, quando os itens são gerados sem considerar a dificuldade, os resultados dos testes podem ser distorcidos, com baixa precisão na estimativa de habilidade e menor validade pedagógica e psicométrica (Susanti et al.,2017). Estudos comparativos mostram que a simples adoção de técnicas de geração automática não garante qualidade, sendo o controle de parâmetros como dificuldade lexical, complexidade textual e estrutura lógica essencial para gerar questões que realmente avaliem compreensão leitora em diferentes níveis (Tomikawa, 2024). Assim, o avanço das técnicas de geração automática de itens — especialmente as baseadas em modelos de linguagem e teoria de resposta ao item — indica que a personalização e o controle da dificuldade não apenas alteram, mas elevam significativamente a qualidade dos resultados obtidos em testes de leitura.
-
 
 ArXiv: Automatic Generation and Evaluation of Reading Comprehension Test Items with Large Language Models. (2024),  License: CC BY 4.0, arXiv:2404.07720v2 [cs.CL] 20 May 2024. Disponível em: <https://arxiv.org/html/2404.07720v2>. (Exploração prática de LLMs para criar e avaliar itens de múltipla escolha; mostra que controle e avaliação automática da dificuldade são críticas para resultados úteis e comparáveis.) 
 
