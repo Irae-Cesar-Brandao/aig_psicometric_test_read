@@ -3,6 +3,7 @@ Autor: Iraê César Brandão  17/11/2025.
 
 Uso de linguagens:  HMTL, CSS E JAVASCRIPT
 Finalidade: Pesquisa acadêmica e educacional sem fins lucrativos.
+Link de acesso:  https://irae-cesar-brandao.github.io/aig_psicometric_test_read/  
 
 Resumo — como o controle de dificuldade em AIG afeta os resultados dos testes?
 
