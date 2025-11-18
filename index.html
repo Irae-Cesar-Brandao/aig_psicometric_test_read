@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ferramenta: Banco de Itens e Análise (AIG)</title>
+
+
+<!-- ESTILIZAÇÃO CSS  -->
+
+  <style>
+    :root{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+
+    body{margin:0;padding:18px;background:#f6f7fb;color:#111}
+
+    h1{font-size:18px;margin:0 0 12px}
+
+    .container{display:grid;grid-template-columns:1fr 420px;gap:18px}
+
+    .card{background:white;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(12,18,31,0.06)}
+
+    label{display:block;font-size:13px;margin:6px 0 4px}
+
+    input[type=text], textarea, select{width:100%;padding:8px;border:1px solid #e3e6ee;border-radius:6px;font-size:13px}
+
+    textarea{min-height:80px}
+
+    button{padding:8px 10px;border-radius:8px;border:0;background:#2563eb;color:white;cursor:pointer}
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+
+    th,td{padding:6px;border-bottom:1px solid #eef2ff}
+
+    .small{font-size:12px;color:#555}
+
+    .muted{color:#666;font-size:12px}
+
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+
+    .export{background:#10b981}
+
+    .danger{background:#ef4444}
+
+    .stat{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+    .stat .item{background:#f3f4f6;padding:8px;border-radius:8px}
+
+    .center{display:flex;align-items:center;justify-content:center}
+
+    .test-area{max-height:540px;overflow:auto}
+
+     .botao-linkedin {
+        display: inline-block; /* Permite aplicar padding e margin */
+        padding: 10px 20px; /* Espaçamento interno */
+        background-color: #0077b5; /* Cor oficial do LinkedIn */
+        color: white; /* Cor do texto */
+        text-decoration: none; /* Remove o sublinhado padrão do link */
+        border-radius: 4px; /* Cantos arredondados */
+        font-weight: bold; /* Texto em negrito */
+        text-align: center; /* Centraliza o texto */
+        cursor: pointer; /* Muda o cursor para uma mãozinha ao passar por cima */
+        transition: background-color 0.3s ease; /* Transição suave de cor */
+    }
+
+    .botao-linkedin:hover {
+        background-color: #005f91; /* Cor um pouco mais escura ao passar o mouse */
+    }
+
+
+    .texto-3d {
+       font-family: "Arial Black", Helvetica, sans-serif;
+       font-size: 25px; /* Tamanho responsivo para a letra */
+       color: green; /* Cor principal do texto (frente) */
+       text-shadow: 
+        1px 1px 0 yellow,   /* Sombra 1 - leve deslocamento */
+        2px 2px 0 white,   /* Sombra 2  - médio deslocamento */
+        4px 4px 0 lightblue;   /* Sombra 3  - maior deslocamento para efeito 3D */
+    /* Você pode adicionar mais sombras para um efeito 3D mais profundo */
+    }
+
+     img {
+        width: 50%; /* tamanho da imagem no container */
+        height: auto; /* manter a proporção*/
+        object-fit: cover; /* prevenção de distorções */
+        display: block; /* manter proporções */
+        margin-left: auto;
+        margin-right: auto;
+}
+}
+  </style>
+
+<!-- CORPO DA PÁGINA -->
+
+</head>
+<body>
+  <h1  class="texto-3d"  style=" text-align: center;">FERRAMENTA DE BANCO DE ITENS, APLICAÇÃO E ANÁLISE (simples)</h1>
+  <h4  style="color: green;  text-align: center;"> Autor: Iraê César Brandão </h6>
+
+  <div class="container">
+    <div class="card">
+      <h2 style="font-size:15px;margin:0 0 8px">Criar / Gerar Itens</h2>
+      <div class="muted">Preencha um enunciado (trecho) e a pergunta. Ajuste dificuldade (1-fácil a 5-muito difícil). Você pode usar o botão "Gerar Automático" para criar um item simulado.</div>
+      <label>Trecho / Passagem</label>
+      <textarea id="passage" placeholder="Trecho do texto..."></textarea>
+      <label>Pergunta (múltipla escolha)</label>
+      <input id="question" placeholder="Qual é a ideia principal?" />
+      <label>Alternativas (separe por | )</label>
+      <input id="choices" placeholder="A) ... | B) ... | C) ... | D) ..." />
+      <label>Alternativa correta (A/B/C/D)</label>
+      <input id="correct" placeholder="A" />
+      <label>Dificuldade (1-5)</label>
+      <input type="range" id="difficulty" min="1" max="5" value="3" />
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+        <div class="muted small">Nível: <span id="diffLabel">3</span></div>
+        <div class="controls">
+          <button id="addItem">Adicionar Item</button>
+          <button id="autoGen">Gerar Automático</button>
+          <button id="clearBank" class="danger">Limpar Banco</button>
+        </div>
+      </div>
+
+      <hr />
+      <h3 style="font-size:14px;margin:6px 0">Banco de Itens</h3>
+      <div style="max-height:220px;overflow:auto">
+        <table id="itemTable">
+          <thead><tr><th>#</th><th>Passagem (resumida)</th><th>Pergunta</th><th>Dif</th><th>Correta</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div style="margin-top:8px" class="controls">
+        <button id="exportBank" class="export">Exportar Banco (CSV)</button>
+        <button id="importBank">Importar CSV</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:15px;margin:0 0 8px">Aplicar Teste e Coletar Respostas</h2>
+      <div class="muted">Insira um identificador (anônimo) para o participante e aplique o teste.</div>
+      <label>Participant ID (anônimo)</label>
+      <input id="participantId" placeholder="ex: P001" />
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button id="startTest">Iniciar Teste</button>
+        <button id="downloadResponses" class="export">Exportar Respostas (CSV)</button>
+      </div>
+      <hr />
+      <div id="testArea" class="test-area"></div>
+      <hr />
+      <div class="muted">Estatísticas básicas calculadas a partir das respostas coletadas:</div>
+      <div id="stats" class="stat"></div>
+    </div>
+  </div>
+
+  <script>
+    // --- Estruturas em memória ---
+    const itemBank = [];
+    const responses = []; // cada resposta: {participantId, itemIndex, choice, correct}
+
+    const diffLabel = document.getElementById('diffLabel');
+    const difficulty = document.getElementById('difficulty');
+    difficulty.addEventListener('input', ()=> diffLabel.textContent = difficulty.value);
+
+    function addItemToBank(passage, question, choices, correct, diff){
+      const item = {passage, question, choices: choices.split('|').map(s=>s.trim()), correct: correct.trim().toUpperCase(), diff: Number(diff)};
+      itemBank.push(item);
+      renderBank();
+    }
+
+    document.getElementById('addItem').addEventListener('click', ()=>{
+      const p = document.getElementById('passage').value.trim();
+      const q = document.getElementById('question').value.trim();
+      const c = document.getElementById('choices').value.trim();
+      const a = document.getElementById('correct').value.trim();
+      const d = document.getElementById('difficulty').value;
+      if(!p||!q||!c||!a){alert('Preencha todos os campos');return}
+      addItemToBank(p,q,c,a,d);
+      document.getElementById('passage').value='';document.getElementById('question').value='';document.getElementById('choices').value='';document.getElementById('correct').value='';
+    });
+
+    document.getElementById('clearBank').addEventListener('click', ()=>{
+      if(!confirm('Limpar banco de itens (esta ação não pode ser desfeita na memória atual)?')) return;
+      itemBank.length=0;renderBank();
+    });
+
+    function renderBank(){
+      const tbody = document.querySelector('#itemTable tbody');tbody.innerHTML='';
+      itemBank.forEach((it,i)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${i+1}</td><td class="small">${it.passage.slice(0,120).replace(/\n/g,' ')}${it.passage.length>120?'...':''}</td><td class="small">${it.question}</td><td>${it.diff}</td><td>${it.correct}</td><td><button data-i='${i}' class='del'>X</button></td>`;
+        tbody.appendChild(tr);
+      });
+      document.querySelectorAll('.del').forEach(btn=>btn.addEventListener('click', e=>{const i=Number(e.target.dataset.i);itemBank.splice(i,1);renderBank();}));
+    }
+
+    // --- Geração automática simples (simulada) ---
+    document.getElementById('autoGen').addEventListener('click', ()=>{
+      const d = Number(document.getElementById('difficulty').value);
+      // Simples: gera frase com palavras maiores conforme dificuldade e uma pergunta de inferência simples
+      const wordsEasy = ['o','menino','leu','um','livro','na','escola','ontem'];
+      const wordsHard = ['o','estudante','interpretou','a','obra','literária','numa','perspectiva','analítica','complexa'];
+      const passage = (d<=2)? wordsEasy.concat(wordsEasy).join(' ') : (d<=4)? wordsHard.concat(wordsEasy).join(' ') : wordsHard.concat(wordsHard).join(' ');
+      const question = (d<=2)? 'Qual foi a ação principal do sujeito?' : (d<=4)? 'Qual intenção do autor no trecho?' : 'Qual inferência é mais adequada ao trecho?';
+      const choices = (d<=2)? 'Leu | Escreveu | Cantou | Pintou' : 'Interpretar | Ignorar | Rejeitar | Desconsiderar';
+      const correct = (d<=2)? 'A' : 'A';
+      addItemToBank(passage,question,choices,correct,d);
+    });
+
+    // --- Teste / Aplicação ---
+    document.getElementById('startTest').addEventListener('click', ()=>{
+      const pid = document.getElementById('participantId').value.trim() || ('P'+(Math.random()*10000|0));
+      if(itemBank.length===0){alert('Banco vazio: crie ou gere itens primeiro.');return}
+      startSession(pid);
+    });
+
+    function startSession(pid){
+      const area = document.getElementById('testArea');area.innerHTML='';
+      const form = document.createElement('form');
+      itemBank.forEach((it,idx)=>{
+        const div = document.createElement('div');div.style.margin='10px 0';
+        const p = document.createElement('div');p.className='small';p.textContent = `Item ${idx+1} (dif: ${it.diff}) - ${it.passage.slice(0,200)}`;
+        const q = document.createElement('div');q.style.marginTop='6px';q.textContent = it.question;
+        const sel = document.createElement('select');sel.name='item_'+idx;const def = document.createElement('option');def.value='';def.textContent='-- escolha --';sel.appendChild(def);
+        it.choices.forEach((ch,cidx)=>{const o=document.createElement('option');o.value=String.fromCharCode(65+cidx);o.textContent = `${String.fromCharCode(65+cidx)}) ${ch}`;sel.appendChild(o);});
+        div.appendChild(p);div.appendChild(q);div.appendChild(sel);form.appendChild(div);
+      });
+      const submit = document.createElement('button');submit.type='button';submit.textContent='Enviar respostas';submit.style.marginTop='6px';
+      submit.addEventListener('click', ()=>{
+        const fd = new FormData(form);const now = (new Date()).toISOString();
+        itemBank.forEach((it,idx)=>{
+          const key = 'item_'+idx;const ch = fd.get(key)||'';const correct = (String(ch).toUpperCase()===it.correct)?1:0;responses.push({participantId:pid,itemIndex:idx,choice:String(ch),correct, timestamp:now});
+        });
+        alert('Respostas salvas (memória local). Você pode iniciar outro participante ou exportar os dados.');
+        updateStats();
+        area.innerHTML='';
+      });
+      form.appendChild(submit);area.appendChild(form);
+    }
+
+    // --- Estatísticas simples ---
+    function updateStats(){
+      const statsEl = document.getElementById('stats');statsEl.innerHTML='';
+      if(responses.length===0){statsEl.innerHTML='<div class="item">Nenhuma resposta coletada ainda.</div>';return}
+      // calcular por item: p-value (proporção correta), discriminação (correl. ponto-biserial aprox. com total)
+      // montar matriz de participantes x itens
+      const participants = Array.from(new Set(responses.map(r=>r.participantId)));
+      const nP = participants.length;const nI = itemBank.length;
+      const matrix = participants.map(pid=>{
+        const row = Array(nI).fill(0);
+        responses.filter(r=>r.participantId===pid).forEach(r=>{row[r.itemIndex] = r.correct});
+        return {pid,row,total:row.reduce((a,b)=>a+b,0)};
+      });
+      const pValues = [];
+      for(let i=0;i<nI;i++){
+        const col = matrix.map(r=>r.row[i]);
+        const pval = col.reduce((s,x)=>s+x,0)/nP; pValues.push(pval);
+      }
+      // discriminação aproximada: correlação item-total
+      const discriminations = [];
+      for(let i=0;i<nI;i++){
+        const itemScores = matrix.map(r=>r.row[i]);
+        const totals = matrix.map(r=>r.total - r.row[i]); // item-rest correlation
+        const corr = pearson(itemScores, totals);
+        discriminations.push(corr);
+      }
+      // alfa de Cronbach (coeficiente) simples
+      const alpha = cronbachAlpha(matrix.map(r=>r.row));
+
+      // render
+      const summary = document.createElement('div');summary.className='item';
+      summary.innerHTML = `<strong>Participantes:</strong> ${nP} · <strong>Itens:</strong> ${nI} · <strong>Cronbach α:</strong> ${alpha.toFixed(3)}`;
+      statsEl.appendChild(summary);
+      // per-item small table
+      for(let i=0;i<nI;i++){
+        const el = document.createElement('div');el.className='item';el.style.minWidth='220px';
+        el.innerHTML = `<strong>Item ${i+1}</strong><div class='small'>p-value: ${pValues[i].toFixed(3)} · discrim: ${isNaN(discriminations[i])? 'n/a' : discriminations[i].toFixed(3)} · dif_esperada: ${itemBank[i].diff}</div>`;
+        statsEl.appendChild(el);
+      }
+    }
+
+    // --- Estatísticas auxiliares ---
+    function mean(arr){return arr.reduce((a,b)=>a+b,0)/arr.length}
+    function sd(arr){const m=mean(arr);return Math.sqrt(arr.reduce((s,x)=>s+(x-m)*(x-m),0)/(arr.length-1||1));}
+    function pearson(a,b){if(a.length!==b.length) return NaN;const ma=mean(a), mb=mean(b);const num=a.reduce((s,_,i)=>s + (a[i]-ma)*(b[i]-mb),0);const den = (Math.sqrt(a.reduce((s,x)=>s+(x-ma)*(x-ma),0))*Math.sqrt(b.reduce((s,x)=>s+(x-mb)*(x-mb),0))); return den? num/den : NaN; }
+    function cronbachAlpha(matrix){ // matrix: array of rows (participants) each array of item scores 0/1
+      if(matrix.length===0) return 0;const k = matrix[0].length; if(k<=1) return 0;
+      const scores = matrix.map(r=>r.reduce((a,b)=>a+b,0));
+      const varTotal = variance(scores);
+      const itemVars = [];
+      for(let j=0;j<k;j++){ const col = matrix.map(r=>r[j]); itemVars.push(variance(col)); }
+      const sumVarItems = itemVars.reduce((a,b)=>a+b,0);
+      return (k/(k-1))*(1 - sumVarItems/varTotal);
+    }
+    function variance(arr){const m=mean(arr);return arr.reduce((s,x)=>s+(x-m)*(x-m),0)/(arr.length-1||1);} 
+
+    // --- Export / Import CSV ---
+    function toCSV(rows, header){
+      const all = [header.join(',')].concat(rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')));
+      return all.join('\n');
+    }
+    document.getElementById('exportBank').addEventListener('click', ()=>{
+      if(itemBank.length===0){alert('Banco vazio');return}
+      const rows = itemBank.map(it=>[it.passage,it.question,it.choices.join('|'),it.correct,it.diff]);
+      const csv = toCSV(rows,['passage','question','choices','correct','diff']);
+      downloadFile(csv,'item_bank.csv');
+    });
+
+    document.getElementById('downloadResponses').addEventListener('click', ()=>{
+      if(responses.length===0){alert('Nenhuma resposta coletada');return}
+      const rows = responses.map(r=>[r.participantId,r.itemIndex,r.choice,r.correct,r.timestamp]);
+      const csv = toCSV(rows,['participantId','itemIndex','choice','correct','timestamp']);
+      downloadFile(csv,'responses.csv');
+    });
+
+    document.getElementById('importBank').addEventListener('click', ()=>{
+      const inp = document.createElement('input');inp.type='file';inp.accept='.csv';inp.onchange = e=>{
+        const f = e.target.files[0]; if(!f) return; const reader = new FileReader(); reader.onload = ev=>{
+          const txt = ev.target.result; const lines = txt.split(/\r?\n/).filter(Boolean); if(lines.length<=1){alert('CSV inválido');return}
+          const header = lines[0].split(',').map(h=>h.replace(/\"/g,'').trim()); const rest = lines.slice(1);
+          rest.forEach(line=>{
+            const cells = parseCSVLine(line);
+            if(cells.length<5) return; addItemToBank(cells[0],cells[1],cells[2],cells[3],cells[4]);
+          });
+        }; reader.readAsText(f,'utf-8');
+      }; inp.click();
+    });
+
+    function parseCSVLine(line){ // muito simples
+      const parts = []; let cur=''; let inq=false;
+      for(let i=0;i<line.length;i++){ const ch=line[i]; if(ch==='"'){ inq=!inq; continue;} if(ch===',' && !inq){ parts.push(cur); cur=''; } else cur+=ch; } parts.push(cur); return parts;
+    }
+
+    function downloadFile(text,name){ const blob = new Blob([text],{type:'text/csv;charset=utf-8;'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+
+    // --- inicialização: exemplo de itens ---
+    addItemToBank('O menino leu um livro e entendeu a história facilmente.','Qual foi a acao do menino?','Leu | Escreveu | Cozinhou | Dormiu','A',1);
+    addItemToBank('A pesquisa indica que fatores sociais influenciam a interpretação de textos complexos.','O que o trecho afirma?','Que a pesquisa falha | Que fatores sociais influenciam | Que leitura não importa | Que estatística é imprecisa','B',4);
+
+  </script>
+<div>
+<hr><hr>
+
+<h1 class="texto-3d"  style="text-align: center; color: green;" ><b>"FERRAMENTA AIG TESTE LEITURA"</b></h1>
+
+<br><br>
+
+<!-- IMAGEM -->
+  <img decoding="async" src="Names.jpg" alt="Image Description" ></img>
+<br>
+<b>Orientações de Uso</b><br>
+<h6 align="justify"  style="color: #696969;">
+<ul>
+<li>Interface para criar itens manualmente ou gerar itens automáticos simples (simulação) com controle de dificuldade (1–5);</li>
+
+<li>Área para aplicar o teste a participantes (ID anônimo), registrar respostas em memória e calcular estatísticas básicas: p-value (proporção correta por item), discriminação aproximada (correlação item-total) e alfa de Cronbach;</li>
+
+<li>Botões para exportar o banco de itens e as respostas em CSV (para análise posterior em R/SPSS/Python) e para importar CSV de volta.</li>
+</ul>
+
+<b>Sugestões práticas para aferição empírica e ética (passos e recomendações resumidos)</b>
+<!-- LISTA NUMERADA-->
+<ol>
+<li><b>Planejamento experimental:</b> monte um desenho comparativo para avaliar diferença entre testes com e sem controle de dificuldade: <br>
+por exemplo, grupo aleatório
+<b>A</b> (teste gerado sem controle) vs <b>B</b> (teste gerado com controle) ou desenho cruzado (cada participante responde ambos, com ordem contra-balanceada). Faça um piloto para checar itens (n pequeno, p.ex. 20–30) antes do estudo principal. Use métricas: <b>p-value, discriminação, confiabilidade (α), curva ICC</b> se calibrar por <b>IRT</b>. Para <b>IRT</b> você precisará de ferramentas estatísticas externas <b>(R: packages mirt, ltm; Python: pyirt/pycirt)</b>, já que a ferramenta web faz apenas análises básicas.</li><br>
+
+<li><b>Amostragem / Tamanho de efeito:</b> calcule tamanho de amostra baseado na diferença mínima detectável desejada (p.ex. diferença de 0.25 no efeito de grupo em média de acertos) e no nível de confiança/poder (p.ex. 80%). Se não tiver cálculo formal, um ponto de partida prático para estudos de validação instrumentais costuma ser 100–200 participantes para análise de itens; estudos piloto menores (30–60) para depuração.</li><br>
+
+<li><b>Ética e consentimento:</b> aplique termo de consentimento informado claro (objetivo do estudo, anonimização, voluntariedade, direito de sair sem prejuízo). Se for pesquisa institucional, submeta ao comitê de ética (CEP/IRB) conforme regras locais. Armazene apenas identificadores anônimos; não colete dados sensíveis sem justificativa e aprovação.</li><br>
+
+<li><b>Triangulação qualitativa:</b> complemente com entrevistas semiestruturadas ou think-aloud com 10–20 participantes para entender como os sujeitos interpretam itens (isso revela se diferença de acerto é por dificuldade real ou ambiguidade do item). Registre (com permissão) e transcreva trechos relevantes. Use perguntas como: “o que o enunciado pede?”; “por que escolheu essa alternativa?”; “houve palavra difícil/ambígua?”.</li><br>
+
+<li><b>Validação e análise: após coleta, faça:</b> </li>
+<ul>
+<br>(a) análise descritiva das taxas de acerto por item; 
+<br>(b) análise de discriminação (itens fracos: discrim < 0.2 devem ser revisados); 
+<br>(c) confiabilidade (cronbach α); 
+<br>(d) se possível, calibragem por IRT para estimar parâmetros de dificuldade e discriminação mais robustos; 
+<br>(e) análise de diferenças entre grupos (t-test / ANOVA / modelos mistos) para comparar médias e desvios. Reporte intervalos de confiança.
+</ul><br>
+
+<li><b>Transparência e reprodutibilidade:</b> publique (ou armazene) o banco de itens final e os scripts de análise (R/Python) e documentação sobre como os itens foram gerados (algoritmos, heurísticas, revisão humana). Isso melhora validade face e científica.</li><br>
+</h6>
+</ol>
+
+<hr><hr>
+<b> Justificativa deste Projeto: </b> <br>
+<h6 align="justify"  style="color: #696969;">
+<i>A elaboração deste teste tem como finalidade oferecer um meio sistemático, ético e empiricamente fundamentado para avaliar a proficiência leitora em diferentes níveis de dificuldade, permitindo tanto o diagnóstico individual quanto a análise pedagógica e científica dos resultados. Em contextos educacionais tradicionais, os instrumentos de avaliação costumam apresentar limitações importantes: ausência de calibragem entre itens, falta de controle sobre o nível de dificuldade, subjetividade na elaboração de questões e pouca comparabilidade entre turmas e aplicações. Ao desenvolver um teste baseado em geração automatizada e parametrizada de itens, busca-se reduzir essas limitações ao possibilitar maior padronização, reprodutibilidade e sensibilidade à evolução do desempenho dos participantes. <br><br>
+
+Além disso, o uso de medição computacional permite coletar dados em larga escala, registrar tempo de resposta, calcular métricas psicométricas (como dificuldade, discriminação e confiabilidade), criar diferentes versões equivalentes do teste e exportar resultados para análises estatísticas mais robustas, como TRI/IRT ou modelos de Rasch. Esse processo contribui para a construção de instrumentos mais justos, transparentes e baseados em evidências, alinhados às diretrizes contemporâneas de avaliação educacional.<br><br>
+
+O desenvolvimento desse teste atende a duas finalidades complementares: <br>
+(1) pedagógica: oferecer a educadores uma ferramenta que apoie decisões de ensino e intervenções personalizadas, e <br>
+(2) científica: permitir estudos que investiguem como diferentes características dos textos e das questões impactam a compreensão leitora, especialmente quando comparados testes com e sem controle de dificuldade. <br>
+Assim, o instrumento atua tanto como diagnóstico quanto como objeto de pesquisa, contribuindo para a melhoria contínua da prática avaliativa e para o avanço do conhecimento na área de alfabetização e psicometria educacional.<i></h6>
+<br>
+
+<i><b>Iraê César Brandão </b><br>
+<h6 style="color: #696969;"> CEO- Founder LUCK WAY® | MBA Executive Cyber ​​Security | IT Manager | Senior Developer | Accountant | Prof. Technician-Multidisciplinary Workshop | MBA Exec. in Strategic Marketing Manag. Planning and Comp. Intelligence </i></h6>
+ 
+<a href="https://www.linkedin.com/in/irae-cesar-brandao-a2112b69/" class="botao-linkedin" target="_blank" rel="noopener noreferrer">
+    Acessar LinkedIn
+</a>
+</div>
+
+</body>
+</html>
