@@ -25,6 +25,8 @@ Em contraste, quando os itens são gerados sem considerar a dificuldade, os resu
 - Efeito sobre resultados em comparação com geração sem controle: testes gerados sem considerar dificuldade tendem a produzir medidas menos precisas — mais viés para alunos muito fracos ou muito fortes, menor informação test-retest e possíveis problemas de validade (itens muito fáceis/ difíceis ou distractores mal calibrados). Estudos experimentais mostram que controlar a dificuldade (via IRT, heurísticas linguísticas ou LLMs com rótulos de dificuldade) altera as taxas de acerto, índices de discriminação e a estimativa de habilidade média da amostra(Susanti et al., 2017).
  
 
+<b> Referências </b>
+
 ArXiv: Automatic Generation and Evaluation of Reading Comprehension Test Items with Large Language Models. (2024),  License: CC BY 4.0, arXiv:2404.07720v2 [cs.CL] 20 May 2024. Disponível em: <https://arxiv.org/html/2404.07720v2>. (Exploração prática de LLMs para criar e avaliar itens de múltipla escolha; mostra que controle e avaliação automática da dificuldade são críticas para resultados úteis e comparáveis.) 
 
 Attali, Y. & Burstein, J. (2022). The interactive reading task: Transformer-based automatic item generation for reading comprehension. Frontiers in Artificial Intelligence. Disponível em: <https://doi.org/10.3389/frai.2022.903077>. (Descreve um pipeline transformer para gerar passagens e questões automaticamente, com capacidade de criação ampla de itens e discussão sobre validade automática/automática pontuação.) 
