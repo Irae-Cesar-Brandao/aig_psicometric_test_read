@@ -332,7 +332,7 @@
     function downloadFile(text,name){ const blob = new Blob([text],{type:'text/csv;charset=utf-8;'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
 
     // --- inicialização: exemplo de itens ---
-    addItemToBank('O menino leu um livro e entendeu a história facilmente.','Qual foi a acao do menino?','Leu | Escreveu | Cozinhou | Dormiu','A',1);
+    addItemToBank('O estudante leu um livro e entendeu a história facilmente.','Qual foi a acao do estudante?','Leu | Escreveu | Cozinhou | Dormiu','A',1);
     addItemToBank('A pesquisa indica que fatores sociais influenciam a interpretação de textos complexos.','O que o trecho afirma?','Que a pesquisa falha | Que fatores sociais influenciam | Que leitura não importa | Que estatística é imprecisa','B',4);
 
   </script>
@@ -417,6 +417,7 @@ por exemplo, grupo aleatório
 
 </body>
 </html>
+
 
 
 
