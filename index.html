@@ -95,7 +95,7 @@
 <body>
   <h1  class="texto-3d"  style=" text-align: center;">FERRAMENTA DE BANCO DE ITENS, APLICAÇÃO E ANÁLISE (simples)</h1>
   <h4  style="color: green;  text-align: center;"> Autor: Iraê César Brandão - </h4>
-  <h6\>  Criado em 16/11/2025 - Atualizado em: 17/11/2025</h6>
+  <h7\ style="color: green;  text-align: center;">  Criado em 16/11/2025 - Atualizado em: 19/11/2025</h7>
 
   <div class="container">
     <div class="card">
@@ -196,7 +196,7 @@
     document.getElementById('autoGen').addEventListener('click', ()=>{
       const d = Number(document.getElementById('difficulty').value);
       // Simples: gera frase com palavras maiores conforme dificuldade e uma pergunta de inferência simples
-      const wordsEasy = ['o','menino','leu','um','livro','na','escola','ontem'];
+      const wordsEasy = ['o','estudante','leu','um','livro','na','escola','ontem'];
       const wordsHard = ['o','estudante','interpretou','a','obra','literária','numa','perspectiva','analítica','complexa'];
       const passage = (d<=2)? wordsEasy.concat(wordsEasy).join(' ') : (d<=4)? wordsHard.concat(wordsEasy).join(' ') : wordsHard.concat(wordsHard).join(' ');
       const question = (d<=2)? 'Qual foi a ação principal do sujeito?' : (d<=4)? 'Qual intenção do autor no trecho?' : 'Qual inferência é mais adequada ao trecho?';
@@ -350,13 +350,15 @@
 <h6 align="justify"  style="color: #696969;">
 <i>A elaboração deste teste tem como finalidade oferecer um meio sistemático, ético e empiricamente fundamentado para avaliar a proficiência leitora em diferentes níveis de dificuldade, permitindo tanto o diagnóstico individual quanto a análise pedagógica e científica dos resultados. Em contextos educacionais tradicionais, os instrumentos de avaliação costumam apresentar limitações importantes: ausência de calibragem entre itens, falta de controle sobre o nível de dificuldade, subjetividade na elaboração de questões e pouca comparabilidade entre turmas e aplicações. Ao desenvolver um teste baseado em geração automatizada e parametrizada de itens, busca-se reduzir essas limitações ao possibilitar maior padronização, reprodutibilidade e sensibilidade à evolução do desempenho dos participantes. <br><br>
 
-Além disso, o uso de medição computacional permite coletar dados em larga escala, registrar tempo de resposta, calcular métricas psicométricas (como dificuldade, discriminação e confiabilidade), criar diferentes versões equivalentes do teste e exportar resultados para análises estatísticas mais robustas, como TRI/IRT ou modelos de Rasch. Esse processo contribui para a construção de instrumentos mais justos, transparentes e baseados em evidências, alinhados às diretrizes contemporâneas de avaliação educacional.<br><br>
+Além disso, o uso de medição computacional permite coletar dados em larga escala, registrar tempo de resposta, calcular métricas psicométricas (como dificuldade, discriminação e confiabilidade), criar diferentes versões equivalentes do teste e exportar resultados para análises estatísticas mais robustas, como TRI/IRT  (Teoria da Resposta ao Item) ou modelos de Rasch. Esse processo contribui para a construção de instrumentos mais justos, transparentes e baseados em evidências, alinhados às diretrizes contemporâneas de avaliação educacional.<br><br>
 
 O desenvolvimento desse teste atende a duas finalidades complementares: <br>
 (1) pedagógica: oferecer a educadores uma ferramenta que apoie decisões de ensino e intervenções personalizadas, e <br>
 (2) científica: permitir estudos que investiguem como diferentes características dos textos e das questões impactam a compreensão leitora, especialmente quando comparados testes com e sem controle de dificuldade. <br>
-Assim, o instrumento atua tanto como diagnóstico quanto como objeto de pesquisa, contribuindo para a melhoria contínua da prática avaliativa e para o avanço do conhecimento na área de alfabetização e psicometria educacional.<i></h6>
+Assim, o instrumento atua tanto como diagnóstico quanto como objeto de pesquisa, contribuindo para a melhoria contínua da prática avaliativa e para o avanço do conhecimento na área de alfabetização e psicometria educacional [1].<i></h6>
 <br>
+<i>  [1] psicometria educacional: é o ramo da psicologia e da educação que utiliza a teoria e a técnica para medir construtos psicológicos e de aprendizagem por meio de instrumentos como testes e avaliações.</i>
+  <br>
 <hr><hr>
 
 
@@ -365,9 +367,13 @@ Assim, o instrumento atua tanto como diagnóstico quanto como objeto de pesquisa
 <ul>
 <li>Interface para criar itens manualmente ou gerar itens automáticos simples (simulação) com controle de dificuldade (1–5);</li>
 
-<li>Área para aplicar o teste a participantes (ID anônimo), registrar respostas em memória e calcular estatísticas básicas: p-value (proporção correta por item), discriminação aproximada (correlação item-total) e alfa de Cronbach;</li>
+<li>Área para aplicar o teste a participantes (ID anônimo), registrar respostas em memória e calcular estatísticas básicas: p-value (proporção correta por item), discriminação aproximada (correlação item-total) e alfa de Cronbach [2];</li><br>
 
-<li>Botões para exportar o banco de itens e as respostas em CSV (para análise posterior em R/SPSS/Python) e para importar CSV de volta.</li>
+<li>Botões para exportar o banco de itens e as respostas em CSV (para análise posterior em R/SPSS/Python) e para importar CSV de volta.</li><br>
+   <i> [2] Alfa de cronbach α): é uma medida estatística de consistência interna, usada para avaliar a confiabilidade de um questionário 
+    ou teste com múltiplos itens. Ele mede o quão intimamente um grupo de itens está relacionado, indicando se todos os itens de
+    uma escala medem o mesmo conceito subjacente de forma consistente. Valores mais altos de α (alpha) geralmente indicam maior 
+    confiabilidade e consistência interna entre os itens da escala. </i>
 </ul>
 
 <b>Sugestões práticas para aferição empírica e ética (passos e recomendações resumidos)</b>
@@ -387,9 +393,9 @@ por exemplo, grupo aleatório
 <ul>
 <br>(a) análise descritiva das taxas de acerto por item; 
 <br>(b) análise de discriminação (itens fracos: discrim < 0.2 devem ser revisados); 
-<br>(c) confiabilidade (cronbach α); 
-<br>(d) se possível, calibragem por IRT para estimar parâmetros de dificuldade e discriminação mais robustos; 
-<br>(e) análise de diferenças entre grupos (t-test / ANOVA / modelos mistos) para comparar médias e desvios. Reporte intervalos de confiança.
+<br>(c) confiabilidade (cronbach α); <br>
+<br>(d) se possível, calibragem por Teoria da Resposta ao Item (IRT) para estimar parâmetros de dificuldade e discriminação mais robustos; 
+<br>(e) análise de diferenças entre grupos (t-test /  modelos mistos) para comparar médias e desvios. Reporte intervalos de confiança.
 </ul><br>
 
 <li><b>Transparência e reprodutibilidade:</b> publique (ou armazene) o banco de itens final e os scripts de análise (R/Python) e documentação sobre como os itens foram gerados (algoritmos, heurísticas, revisão humana). Isso melhora validade face e científica.</li><br>
@@ -408,4 +414,5 @@ por exemplo, grupo aleatório
 
 </body>
 </html>
+
 
